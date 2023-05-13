@@ -1,0 +1,9 @@
+cost add food
+cost add drinks
+discount add 5
+food add 12
+drinks add 18
+cost multiply 5
+print cost
+cost subtract discount
+print cost
