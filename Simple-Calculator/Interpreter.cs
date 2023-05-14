@@ -2,7 +2,7 @@
 {
     public StreamReader input;
 
-    private readonly Dictionary<string, int> registers = new Dictionary<string, int>();
+    private readonly Dictionary<string, int> registers = new();
 
     public Interpreter(StreamReader input)
     {
@@ -61,7 +61,7 @@
             if (tokens[0].ToLower() == "print")
             {
                 string register = tokens[1].ToLower();
-                System.Console.WriteLine(registers.ContainsKey(register) ? registers[register] : 0);
+                System.Console.WriteLine(registers.TryGetValue(register, out int value) ? value : 0);
             }
             else
             {
