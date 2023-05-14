@@ -11,25 +11,25 @@
 
     public void Add(string register, int value)
     {
-        this.registers.TryGetValue(register, out int registerValue);
-        this.registers[register] = registerValue + value;
+        registers.TryGetValue(register, out int registerValue);
+        registers[register] = registerValue + value;
     }
 
     public void Subtract(string register, int value)
     {
-        this.registers.TryGetValue(register, out int registerValue);
-        this.registers[register] = registerValue - value;
+        registers.TryGetValue(register, out int registerValue);
+        registers[register] = registerValue - value;
     }
 
     public void Multiply(string register, int value)
     {
-        this.registers.TryGetValue(register, out int registerValue);
-        this.registers[register] = registerValue * value;
+        registers.TryGetValue(register, out int registerValue);
+        registers[register] = registerValue * value;
     }
 
     public int Evaluate(string value)
     {
-        return int.TryParse(value, out int intValue) ? intValue : this.registers.TryGetValue(value, out int registerValue) ? registerValue : 0;
+        return int.TryParse(value, out int intValue) ? intValue : registers.TryGetValue(value, out int registerValue) ? registerValue : 0;
     }
 
     public void ParseInput(string inputStr)
@@ -61,7 +61,7 @@
             if (tokens[0].ToLower() == "print")
             {
                 string register = tokens[1].ToLower();
-                System.Console.WriteLine(this.registers.ContainsKey(register) ? this.registers[register] : 0);
+                System.Console.WriteLine(registers.ContainsKey(register) ? registers[register] : 0);
             }
             else
             {
