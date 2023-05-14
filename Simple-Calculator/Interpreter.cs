@@ -1,66 +1,35 @@
 ﻿class Interpreter
 {
-    private readonly StreamReader _input;
+    public StreamReader input;
 
-    public StreamReader Input => _input;
-
-    private readonly Dictionary<string, int> _registers = new Dictionary<string, int>();
+    private readonly Dictionary<string, int> registers = new Dictionary<string, int>();
 
     public Interpreter(StreamReader input)
     {
-        _input = input;
+        this.input = input;
     }
 
     public void Add(string register, int value)
     {
-        if (_registers.ContainsKey(register))
-        {
-            _registers[register] += value;
-        }
-        else
-        {
-            _registers.Add(register, value);
-        }
+        this.registers.TryGetValue(register, out int registerValue);
+        this.registers[register] = registerValue + value;
     }
 
     public void Subtract(string register, int value)
     {
-        if (_registers.ContainsKey(register))
-        {
-            _registers[register] -= value;
-        }
-        else
-        {
-            _registers.Add(register, -value);
-        }
+        this.registers.TryGetValue(register, out int registerValue);
+        this.registers[register] = registerValue - value;
     }
 
     public void Multiply(string register, int value)
     {
-        if (_registers.ContainsKey(register))
-        {
-            _registers[register] *= value;
-        }
-        else
-        {
-            _registers.Add(register, value);
-        }
+        this.registers.TryGetValue(register, out int registerValue);
+        this.registers[register] = registerValue * value;
     }
 
     public int Evaluate(string value)
     {
-        if (int.TryParse(value, out int intValue))
-        {
-            return intValue;
-        }
-        else if (_registers.TryGetValue(value, out int registerValue))
-        {
-            return registerValue;
-        }
-        else
-        {
-            return 0;
-        }
+        return int.TryParse(value, out int intValue) ? intValue : this.registers.TryGetValue(value, out int registerValue) ? registerValue : 0;
     }
 
     public void ParseInput(string inputStr)
@@ -83,7 +52,7 @@
                     Multiply(register, value);
                     break;
                 default:
-                    System.Console.WriteLine($"Invalid operation: {operation}");
+                    Console.Error.WriteLine($"Invalid operation: {operation}");
                     break;
             }
         }
@@ -92,7 +61,7 @@
             if (tokens[0].ToLower() == "print")
             {
                 string register = tokens[1].ToLower();
-                System.Console.WriteLine(_registers.ContainsKey(register) ? _registers[register] : 0);
+                System.Console.WriteLine(this.registers.ContainsKey(register) ? this.registers[register] : 0);
             }
             else
             {

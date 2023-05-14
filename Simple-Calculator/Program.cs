@@ -8,9 +8,9 @@
             try
             {
                 string inputStr;
-                if (interpreter.Input != null)
+                if (interpreter.input != null)
                 {
-                    inputStr = interpreter.Input.ReadLine();
+                    inputStr = interpreter.input.ReadLine();
                     if (inputStr == null)
                     {
                         break;
