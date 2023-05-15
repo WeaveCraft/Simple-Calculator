@@ -36,11 +36,6 @@
         }
     }
 
-    static void LogInvalidCommand(string command)
-    {
-        Console.WriteLine($"Invalid command: {command}");
-    }
-
     static void Main()
     {
         var userInput = Console.ReadLine()?.ToLower().Trim();
@@ -67,7 +62,7 @@
             }
             else if (!string.IsNullOrEmpty(userInput))
             {
-                LogInvalidCommand(userInput);
+                Console.Error.WriteLine($"Invalid command: {userInput}");
             }
 
             userInput = Console.ReadLine()?.ToLower().Trim();
