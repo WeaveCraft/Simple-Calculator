@@ -29,39 +29,49 @@
             case "subtract":
                 return registerValue - argumentValue;
             case "multiply":
-                return registerValue * argumentValue;
+                return registerValue * argumentValue; 
             default:
                 Console.Error.WriteLine($"WARN: Invalid operation {operationSet}");
                 return registerValue;
         }
     }
 
+    static void LogInvalidCommand(string command)
+    {
+        Console.WriteLine($"Invalid command: {command}");
+    }
+
     static void Main()
     {
-        var userInput = Console.ReadLine().ToLower().Trim();
-        while (true)
+        var userInput = Console.ReadLine()?.ToLower().Trim();
+
+        while (userInput != "quit")
         {
-            var argsList = userInput.Split().ToList();
-            if (argsList.Count == 2 && argsList[0] == "print" && registerDict.ContainsKey(argsList[1]))
+            var argsList = userInput?.Split().ToList();
+
+            if (argsList?.Count == 2 && argsList[0] == "print" && registerDict.ContainsKey(argsList[1]))
             {
                 var registerName = argsList[1];
                 Console.WriteLine(LazyEvaluate(registerDict[registerName]));
             }
-            else if (argsList.Count == 3)
+            else if (argsList?.Count == 3)
             {
                 var registerName = argsList[0];
                 var operationSet = Tuple.Create(argsList[1], argsList[2]);
+
                 if (!registerDict.ContainsKey(registerName))
                 {
                     registerDict[registerName] = new List<Tuple<string, string>>();
                 }
                 registerDict[registerName].Add(operationSet);
             }
-            else if (userInput == "quit")
+            else if (!string.IsNullOrEmpty(userInput))
             {
-                return;
+                LogInvalidCommand(userInput);
             }
-            userInput = Console.ReadLine().ToLower().Trim();
+
+            userInput = Console.ReadLine()?.ToLower().Trim();
         }
     }
+
 }
