@@ -1,11 +1,20 @@
-Simple-Calculator
-The calculator can add, subtract and multiply values in a set of registers.
-The syntax is quite simple:
+Simple Calculator
+The Simple Calculator is a program that enables you to perform addition, subtraction, and multiplication operations on values stored in registers. It supports a simple syntax and allows for the use of registers as values with lazy evaluation.
+
+Syntax
+The syntax for using the calculator is as follows:
+
+php
+Copy code
 <register> <operation> <value>
 print <register>
 quit
+The allowed operations are add, subtract, and multiply.
 
-Allowed operations are add, subtract and multiply. Example:
+Usage Examples
+Example 1:
+plaintext
+Copy code
 A add 2
 A add 3
 print A
@@ -15,22 +24,29 @@ print B
 A add 1
 print A
 quit
+Output:
 
-The output will be:
+plaintext
+Copy code
 5
 3
 6
-
-The calculator should also support using registers as values, with lazy evaluation (evaluated at print), e.g.
-A multiply B. Here is two more examples:
+Example 2:
+plaintext
+Copy code
 a add 10
 b add a
 b add 1
 print b
 QUIT
-The output should be:
+Output:
+
+plaintext
+Copy code
 11
-===
+Example 3:
+plaintext
+Copy code
 result add revenue
 result subtract costs
 revenue add 200
@@ -40,5 +56,16 @@ salaries multiply 5
 costs add 10
 print result
 QUIT
-The output should be:
-90 
+Output:
+
+plaintext
+Copy code
+90
+Note
+The calculator supports the use of registers as values, which are lazily evaluated at the time of printing.
+
+Feel free to try out different combinations of operations and registers to perform calculations.
+
+Note: This program accepts input either from the standard input stream or from a file. When launching the program with a command-line argument specifying a file, the input will be read from that file, allowing for convenient usage.
+
+To exit the program, use the quit command.
