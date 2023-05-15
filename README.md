@@ -1,8 +1,11 @@
 # Simple-Calculator
 
-<register> <operation> <value>
-print <register>
-quit
+#<register> 
+#<operation>
+#<value>
+#print <register>
+#quit
+  
 Allowed operations are add, subtract and multiply. Here is a simple example:
 A add 2
 A add 3
