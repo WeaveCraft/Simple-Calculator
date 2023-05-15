@@ -8,7 +8,7 @@
 ---
 
 ## **Quick start**
-### in termianl, `dotnet build` -> run program `ctrl + f5`
+### in terminal, `dotnet build` -> run program `ctrl + f5`
 
 ## Allowed operations are add, subtract and multiply:
 - A add 2
