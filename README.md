@@ -1,5 +1,9 @@
 Simple-Calculator
-Simple calculator with add, subtract and multiply that supports lazy evaluation.
+The calculator can add, subtract and multiply values in a set of registers.
+The syntax is quite simple:
+<register> <operation> <value>
+print <register>
+quit
 
 Allowed operations are add, subtract and multiply. Example:
 A add 2
@@ -17,3 +21,24 @@ The output will be:
 3
 6
 
+The calculator should also support using registers as values, with lazy evaluation (evaluated at print), e.g.
+A multiply B. Here is two more examples:
+a add 10
+b add a
+b add 1
+print b
+QUIT
+The output should be:
+11
+===
+result add revenue
+result subtract costs
+revenue add 200
+costs add salaries
+salaries add 20
+salaries multiply 5
+costs add 10
+print result
+QUIT
+The output should be:
+90 
