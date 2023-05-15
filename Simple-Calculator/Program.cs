@@ -1,32 +1,67 @@
 ﻿class Program
 {
-    static void Main(string[] args)
+    static Dictionary<string, List<Tuple<string, string>>> registerDict = new();
+
+    static int LazyEvaluate(List<Tuple<string, string>> operationList, int registerValue = 0)
     {
-        var interpreter = new Interpreter(args.Length > 0 ? new StreamReader(args[0]) : null);
+        if (operationList.Count == 0)
+        {
+            return registerValue;
+        }
+        var operationSet = operationList.First();
+        var operationListRest = operationList.Skip(1).ToList();
+        return LazyEvaluate(operationListRest, ParseInput(registerValue, operationSet));
+    }
+
+    static int ParseInput(int registerValue, Tuple<string, string> operationSet)
+    {
+        var register = operationSet.Item1;
+        var operation = operationSet.Item2;
+        if (!int.TryParse(operation, out int argumentValue))
+        {
+            argumentValue = LazyEvaluate(registerDict[operation]);
+        }
+
+        switch (register)
+        {
+            case "add":
+                return registerValue + argumentValue;
+            case "subtract":
+                return registerValue - argumentValue;
+            case "multiply":
+                return registerValue * argumentValue;
+            default:
+                Console.Error.WriteLine($"WARN: Invalid operation {operationSet}");
+                return registerValue;
+        }
+    }
+
+    static void Main()
+    {
+        var userInput = Console.ReadLine().ToLower().Trim();
         while (true)
         {
-            try
+            var argsList = userInput.Split().ToList();
+            if (argsList.Count == 2 && argsList[0] == "print" && registerDict.ContainsKey(argsList[1]))
             {
-                string inputStr;
-                if (interpreter.input != null)
-                {
-                    inputStr = interpreter.input.ReadLine();
-                    if (inputStr == null)
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    Console.Write("> ");
-                    inputStr = Console.ReadLine();
-                }
-                interpreter.ParseInput(inputStr);
+                var registerName = argsList[1];
+                Console.WriteLine(LazyEvaluate(registerDict[registerName]));
             }
-            catch (Exception e)
+            else if (argsList.Count == 3)
             {
-                Console.WriteLine($"Error: {e.Message}");
+                var registerName = argsList[0];
+                var operationSet = Tuple.Create(argsList[1], argsList[2]);
+                if (!registerDict.ContainsKey(registerName))
+                {
+                    registerDict[registerName] = new List<Tuple<string, string>>();
+                }
+                registerDict[registerName].Add(operationSet);
             }
+            else if (userInput == "quit")
+            {
+                return;
+            }
+            userInput = Console.ReadLine().ToLower().Trim();
         }
     }
 }
