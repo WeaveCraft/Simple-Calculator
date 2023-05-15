@@ -6,8 +6,8 @@ The syntax for using the calculator is as follows:
 
 php
 Copy code
-<register> <operation> <value>
-print <register>
+register operation value
+print register
 quit
 The allowed operations are add, subtract, and multiply.
 
